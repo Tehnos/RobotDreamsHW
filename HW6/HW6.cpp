@@ -82,15 +82,28 @@ int main()
 			std::cout << ch<<"\n";
 
 	}*/
+	//std::cout << std::endl;
+	//int a = 0, b = 1;
+	//std::cout << "Enter the number of the Fibonacci sequence element: ";
+	//std::cin >> n;
+	//for (int i = 2; i <= n; ++i)
+	//{
+	//	int fib_n = a + b;
+	//	a = b;
+	//	b = fib_n;
+	//	std::cout << fib_n <<" ";
+	//}
 	std::cout << std::endl;
-	int a = 0, b = 1;
-	std::cout << "Enter the number of the Fibonacci sequence element: ";
+	std::cout << "Enter the factorial: ";
 	std::cin >> n;
-	for (int i = 2; i <= n; ++i)
+	int factorial = 1;
+	for (int i = 1; i <= n; i++)
 	{
-		int fib_n = a + b;
-		a = b;
-		b = fib_n;
-		std::cout << fib_n <<" ";
+		factorial *= i;
+		if(i<n)
+		std::cout << i << " * ";
+		else 
+		std::cout << i;
 	}
+	std::cout << "\nFactorial of the number " << n << " = " << factorial;
 }
