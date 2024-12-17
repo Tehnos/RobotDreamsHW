@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 
 int main()
 {
@@ -19,36 +20,67 @@ int main()
 	//std::cout << std::endl;
 
 
-	std::cout << "Enter weight:\n";
-	std::cin >> a1;
-	std::cout << "Enter height:\n";
-	std::cin >> d;
+	//std::cout << "Enter weight:\n";
+	//std::cin >> a1;
+	//std::cout << "Enter height:\n";
+	//std::cin >> d;
 
-	for (int i = 0; i < a1; i++)
-	{
-		for (int j = i; j < d; j++)
-		{
-			std::cout << " * ";
-		}
-		std::cout << std::endl;
-	}
-		std::cout << std::endl;
-	for (int i = 0; i < a1; i++)
-	{
-		for (int j = 0; j <= i; j++)
-		{
-			std::cout << " * ";
-		}
-		std::cout << std::endl;
-	}		
+	//for (int i = 0; i < a1; i++)
+	//{
+	//	for (int j = i; j < d; j++)
+	//	{
+	//		std::cout << " * ";
+	//	}
+	//	std::cout << std::endl;
+	//}
+	//	std::cout << std::endl;
+	//for (int i = 0; i < a1; i++)
+	//{
+	//	for (int j = 0; j <= i; j++)
+	//	{
+	//		std::cout << " * ";
+	//	}
+	//	std::cout << std::endl;
+	//}		
+	//std::cout << std::endl;
+	//for (int i = 0; i < a1; i++)
+	//{
+	//	for (int j = 0; j < d; j++)
+	//	{
+	//		std::cout << " * ";
+	//	}
+	//	std::cout << std::endl;
+	//}
 	std::cout << std::endl;
-	for (int i = 0; i < a1; i++)
+
+	char ch;
+	int sum = 0;
+
+	while (true)
 	{
-		for (int j = 0; j < d; j++)
+		std::cout << "Enter a character: ";
+		std::cin >> ch;
+
+		if (ch == '.')
 		{
-			std::cout << " * ";
+			std::cout << "Exit programm";
+			break;
 		}
-		std::cout << std::endl;
+		if (islower(ch))
+		{
+			ch = toupper(ch);
+			std::cout << "Uppercase character: " << ch << "\n";
+		}
+		else if (isdigit(ch))
+		{
+			sum += ch - '0';
+			std::cout << sum << "\n";
+		}
+		else if (ispunct(ch) || isspace(ch))
+			std::cout << "This character is not handled by the program...\n";
+		else
+			std::cout << ch<<"\n";
+
 	}
 
 }
