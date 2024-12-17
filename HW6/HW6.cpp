@@ -51,7 +51,7 @@ int main()
 		}
 		std::cout << std::endl;
 	}
-	/*std::cout << std::endl;
+	std::cout << std::endl;
 
 	char ch;
 	int sum = 0;
@@ -81,7 +81,7 @@ int main()
 		else
 			std::cout << ch<<"\n";
 
-	}*/
+	}
 	std::cout << std::endl;
 	int a = 0, b = 1;
 	std::cout << "Enter the number of the Fibonacci sequence element: ";
