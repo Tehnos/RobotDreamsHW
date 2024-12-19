@@ -43,14 +43,32 @@ int main()
 		std::cout << std::endl;
 	}		
 	std::cout << std::endl;
+
 	for (int i = 0; i < a1; i++)
 	{
+		for (int j = 0; j < i; j++)
+		{
+				std::cout << "   ";
+		}
 		for (int j = 0; j < d; j++)
 		{
-			std::cout << " * ";
+				std::cout << " * ";
 		}
 		std::cout << std::endl;
 	}
+
+	for (int i = 0; i < a1; i++)
+	{
+		for (int j = 0; j <= i; j++)
+		{
+			if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
+				std::cout << 1;
+			else
+				std::cout << 0;
+		}
+		std::cout << std::endl;
+	}
+
 	std::cout << std::endl;
 
 	char ch;
@@ -102,7 +120,7 @@ int main()
 		factorial *= i;
 		if(i<n)
 		std::cout << i << " * ";
-		else 
+		else
 		std::cout << i;
 	}
 	std::cout << "\nFactorial of the number " << n << " = " << factorial;
