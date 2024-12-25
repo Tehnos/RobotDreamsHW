@@ -61,10 +61,7 @@ int main()
 	{
 		for (int j = 0; j <= i; j++)
 		{
-			if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
-				std::cout << 1;
-			else
-				std::cout << 0;
+			std::cout << ((i % 2) == (j % 2));
 		}
 		std::cout << std::endl;
 	}
