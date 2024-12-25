@@ -4,11 +4,12 @@
 #include <iomanip>
 #include <cstring> 
 
-#define BACKCOLOR 7
-#define FRONTCOLOR 0
-#define SELECTCOLOR 4
-#define TOPMENU 10
-#define LEFTMENU 20
+const unsigned short BACKCOLOR = 7;
+const unsigned short FRONTCOLOR = 0;
+const unsigned short SELECTCOLOR = 4;
+const unsigned short TOPMENU = 10;
+const unsigned short LEFTMENU = 20;
+
 void SetColor(unsigned short backColor, unsigned short frontColor)
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -103,18 +104,20 @@ int main()
                 select = 0;
                 select = Menu(gameMenu, sizeGameMenu, select);
                 system("cls");
-                std::cout << "Your choice is " << gameMenu[select];
-                myChoise = gameMenu[select];
-                compChoise = gameMenu[rand() % 3];
-                std::cout << "\nComputer choice is " << compChoise;
-                if (strcmp(myChoise, compChoise) == 0)
+                std::cout << "Your choice is " << gameMenu[select] << std::endl;
+
+                int myChoice = select; 
+                int compChoice = rand() % 3; 
+                std::cout << "Computer choice is " << gameMenu[compChoice] << std::endl;
+
+                if (myChoice == compChoice)
                 {
                     std::cout << "\nIt's a draw!" << std::endl;
                     draws++;
                 }
-                else if ((strcmp(myChoise, gameMenu[0]) == 0 && strcmp(compChoise, gameMenu[1]) != 0) ||
-                    (strcmp(myChoise, gameMenu[1]) == 0 && strcmp(compChoise, gameMenu[2]) != 0) ||
-                    (strcmp(myChoise, gameMenu[2]) == 0 && strcmp(compChoise, gameMenu[0]) != 0))
+                else if ((myChoice == 0 && compChoice == 2) || 
+                    (myChoice == 1 && compChoice == 0) || 
+                    (myChoice == 2 && compChoice == 1))   
                 {
                     myscore++;
                     std::cout << "\nYou've won!" << std::endl;
@@ -125,6 +128,7 @@ int main()
                     std::cout << "\nYou lost\n";
                 }
             }
+
             select = 0;
             std::cout << std::endl << "The game is over!" << std::endl;
             std::cout << "Numbers of rounds - " << rolls << std::endl;
