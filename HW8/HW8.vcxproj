@@ -129,6 +129,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HW8.cpp" />
+    <ClCompile Include="Looping.cpp" />
+    <ClCompile Include="Recursiom.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Looping.h" />
+    <ClInclude Include="Recursion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
