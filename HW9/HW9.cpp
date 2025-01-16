@@ -1,5 +1,5 @@
 #include <iostream>
-
+//task1
 void translateArray(int numbers[], int size)
 {
 	for (int i = 0; i < size; i++)
@@ -17,13 +17,31 @@ void printArray(int numbers[], int size)
 		std::cout<< numbers[i]<<" ";
 	}
 }
-
+//task 2
 void toUppercase(char str[]) {
 	for (int i = 0; str[i] != '\0'; i++) {
 		if (str[i] >= 'a' && str[i] <= 'z') {
 			str[i] -= ('a' - 'A'); 
 		}
 	}
+}
+
+//task3
+bool isPalindrom(const char str[]) {
+	int left = 0;
+	int right = 0;
+	while (str[right] != '\0') {
+		right++;
+	}
+	right--; 
+	while (left < right) {
+		if (str[left] != str[right]) {
+			return false; 
+		}
+		left++;
+		right--;
+	}
+	return true; 
 }
 
 int main()
@@ -41,8 +59,13 @@ int main()
 	char text[size];
 	std::cout << "Enter your text: ";
 	std::cin.getline(text, size);
-	toUppercase(text);
-	std::cout <<std::endl<< text;
+	/*toUppercase(text);
+	std::cout <<std::endl<< text;*/
+
+	if (isPalindrom(text))
+		std::cout << "It's a palindrome";
+	else
+		std::cout << "It's not a palindrome";
 
 
 }
