@@ -12,8 +12,6 @@ enum class DrinkProgramStatus
     LowWater,
     LowMilkLevel,
     CleanNeeded,
-    //TODO HW, add new status if needed
-
     Count
 };
 

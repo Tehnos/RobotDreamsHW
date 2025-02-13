@@ -28,7 +28,6 @@ DrinkProgramStatus DrinkProgram::prepare()
     {
     case DrinkType::Espresso:
     {
-        //TODO: method prepareEspresso()
 
         if (m_context.m_waterReservoir.getVolume() < EsspressoVolume)
         {
@@ -65,13 +64,6 @@ DrinkProgramStatus DrinkProgram::prepare()
         return DrinkProgramStatus::Success;
     }
     case DrinkType::Cappuccino:
-        //TODO HW: Implement Cappuccino logic
-        //Check Water, Milk... Return appropriate error if smth goes wrong
-
-        //Note: Some coffeeMachineі don't check milk strictly, that is they try
-        //to prepare the drink even if there's not enough milk present, up to you to decide exact logic 
-
-        //print "Preparing msgs with proper steps ideally"
         if (m_context.m_waterReservoir.getVolume() < CappuccinoVolume)
         {
             return DrinkProgramStatus::LowWater;

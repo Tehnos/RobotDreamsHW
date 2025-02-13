@@ -21,7 +21,7 @@ enum class CoffeeMachineState
 
 	WaterReservoir,
 	MilkReservoir,
-	CoffeeGrain,    //Not implemented yet
+	CoffeeGrain,   
 
 	DrinkSelection,
 	DrinkPreparation,
