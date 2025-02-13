@@ -22,8 +22,8 @@ public:
     Vector2d operator-(const Vector2d& secondVector) const { return Vector2d(x - secondVector.x, y - secondVector.y);}
     float& operator[](std::size_t idx) 
     {
-        if (idx == 0) return x;
-        if (idx == 1) return y;
+        return x;
+        return y;
     }
 
     void print() const {std::cout << "{" << x << "; " << y << "}" << std::endl;}
