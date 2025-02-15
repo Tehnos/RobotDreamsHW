@@ -8,11 +8,9 @@ DynamicIntArray::DynamicIntArray(std::size_t size):m_size(size)
 
 int& DynamicIntArray::operator[](std::size_t index)
 {
-	if (index >= m_size)
-	{
-		std::cout << "Warning: Index out of bounds. Returning the last element.\n";
-		return m_data[m_size - 1]; 
-	}
+#ifdef _DEBUG
+	std::cout << "Warning: Index out of bounds. Returning the last element.\n";
+#endif
 	return m_data[index];
 }
 
