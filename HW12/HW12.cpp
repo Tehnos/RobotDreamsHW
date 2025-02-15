@@ -90,6 +90,7 @@ int main()
 	for (int i = 0; i < size; i++)
 		std::cout << arr[i];*/
 
+
 		//task2
 	int arr_2d[ROWS][COLUMNS]{
 								{1, 5, 4},
