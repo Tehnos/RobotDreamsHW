@@ -3,40 +3,14 @@
 #include <chrono>
 #include <thread>
 
-DrinkProgram::DrinkProgram(DrinkType type, CoffeeMachine& context) : 
-    m_drinkType(type), 
-    m_context(context) {}
+DrinkProgram::DrinkProgram(CoffeeMachine& context) :m_context(context) {}
 
-
-void Coffee::showInfo()
+void Espresso::showInfo()
 {
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-        std::cout << "Espresso!";
-        break;
-    case DrinkType::Cappuccino:
-        std::cout << "Cappuccino!";
-        break;
-    default:
-        break;
-    }
+    std::cout << " Espresso! ";
 }
 
-DrinkProgramStatus Coffee::prepare()
-{
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-        return prepareEspresso();
-    case DrinkType::Cappuccino:
-        return prepareCappuccino();
-    default:
-        return DrinkProgramStatus::Success;
-    }
-}
-
-DrinkProgramStatus Coffee::prepareEspresso()
+DrinkProgramStatus Espresso::prepare()
 {
     if (m_context.getCoffeeGrainsContainer().needsCleaning() == true)
     {
@@ -89,7 +63,13 @@ DrinkProgramStatus Coffee::prepareEspresso()
     return DrinkProgramStatus::Success;
 }
 
-DrinkProgramStatus Coffee::prepareCappuccino()
+void Cappuccino::showInfo()
+{
+    std::cout << " Cappuccino! ";
+
+}
+
+DrinkProgramStatus Cappuccino::prepare()
 {
     if (m_context.getCoffeeGrainsContainer().needsCleaning() == true)
     {
@@ -97,7 +77,7 @@ DrinkProgramStatus Coffee::prepareCappuccino()
     }
     const float CappuccinoVolume = 0.07f;
     const float CappuccinoMilkVolume = 0.07f;
-    const float  CappuccinoCoffeeGrainsVolume = 320.f;
+    const float  CappuccinoCoffeeGrainsVolume = 20.f;
     if (m_context.getWaterReservoir().getVolume() < CappuccinoVolume)
     {
         return DrinkProgramStatus::LowWater;
@@ -109,7 +89,7 @@ DrinkProgramStatus Coffee::prepareCappuccino()
     else if (m_context.getCoffeeGrainsContainer().getGrains() < CappuccinoCoffeeGrainsVolume)
     {
         return DrinkProgramStatus::LowGrainsLevel;
-    } 
+    }
 
     m_context.getWaterReservoir().useWater(CappuccinoVolume);
     m_context.getMilkReservoir().getMilk(CappuccinoMilkVolume);
@@ -149,38 +129,14 @@ DrinkProgramStatus Coffee::prepareCappuccino()
     std::cout << "DONE!\n\n";
 
     return DrinkProgramStatus::Success;
-
-};
-
-void Tea::showInfo()
-{
-
-    switch (m_drinkType)
-    {
-    case DrinkType::HotTea:
-        std::cout << "Hot tea!";
-        break;
-    case DrinkType::ColdTea:
-        std::cout << "Cold tea!";
-        break;
-    default:
-        break;
-    }
-}
-DrinkProgramStatus Tea::prepare()
-{
-    switch (m_drinkType)
-    {
-    case DrinkType::HotTea:
-        return prepareHotTea();
-    case DrinkType::ColdTea:
-        return prepareColdTea();
-    default:
-        return DrinkProgramStatus::Success;
-    }
 }
 
-DrinkProgramStatus Tea::prepareHotTea()
+void HotTea::showInfo()
+{
+    std::cout << " HotTea! ";
+}
+
+DrinkProgramStatus HotTea::prepare()
 {
     const float HotTeaVolume = 0.3f;
     if (m_context.getWaterReservoir().getVolume() < HotTeaVolume)
@@ -218,7 +174,12 @@ DrinkProgramStatus Tea::prepareHotTea()
     return DrinkProgramStatus::Success;
 }
 
-DrinkProgramStatus Tea::prepareColdTea()
+void ColdTea::showInfo()
+{
+    std::cout << " ColdTea! ";
+}
+
+DrinkProgramStatus ColdTea::prepare()
 {
     const float ColdTeaVolume = 0.37f;
     if (m_context.getWaterReservoir().getVolume() < ColdTeaVolume)

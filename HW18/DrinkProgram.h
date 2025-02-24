@@ -1,13 +1,5 @@
 #pragma once
 
-enum class DrinkType
-{
-	Espresso,
-	Cappuccino,
-	HotTea,
-	ColdTea
-};
-
 enum class DrinkProgramStatus
 {
 	Success = 0,
@@ -22,66 +14,64 @@ enum class DrinkProgramStatus
 class DrinkProgram
 {
 public:
-	DrinkProgram(DrinkType type, class CoffeeMachine& context);
+	DrinkProgram( class CoffeeMachine& context);
 	virtual ~DrinkProgram() = default;
 
 	virtual void showInfo() = 0;
 	virtual DrinkProgramStatus prepare() = 0;
 
 protected:
-	DrinkType m_drinkType;
 	class CoffeeMachine& m_context;
 };
 
 //Coffe
-class Coffee :public DrinkProgram
+class Coffee : public DrinkProgram
 {
 public:
-	Coffee(DrinkType type, class CoffeeMachine& context) :DrinkProgram(type, context) {}
+	Coffee(CoffeeMachine& context) : DrinkProgram(context) {}
 
+	void showInfo() override = 0;
+	DrinkProgramStatus prepare() override = 0;
+};
+
+class Espresso : public Coffee
+{
+public:
+	Espresso(CoffeeMachine& context) : Coffee(context) {}
 	void showInfo() override;
 	DrinkProgramStatus prepare() override;
-protected:
-	virtual DrinkProgramStatus prepareEspresso();
-	virtual DrinkProgramStatus prepareCappuccino();
 };
-
-
-class Esspresso : public Coffee
-{
-public:
-	Esspresso(CoffeeMachine& context) :Coffee(DrinkType::Espresso, context) {}
-};
-
 
 class Cappuccino : public Coffee
 {
 public:
-	Cappuccino(CoffeeMachine& context) :Coffee(DrinkType::Cappuccino, context) {}
+	Cappuccino(CoffeeMachine& context) : Coffee(context) {}
+	void showInfo() override;
+	DrinkProgramStatus prepare() override;
 };
 
-
-//Tea
+// Tea
 class Tea : public DrinkProgram
 {
 public:
-	Tea(DrinkType type, class CoffeeMachine& context) :DrinkProgram(type, context) {}
+	Tea(CoffeeMachine& context) : DrinkProgram(context) {}
 
-	void showInfo() override;
-	DrinkProgramStatus prepare() override;
-protected:
-	virtual DrinkProgramStatus prepareHotTea();
-	virtual DrinkProgramStatus prepareColdTea();
+	void showInfo() override = 0;
+	DrinkProgramStatus prepare() override = 0;
 };
 
 class HotTea : public Tea
 {
 public:
-	HotTea(CoffeeMachine& context) :Tea(DrinkType::HotTea, context) {}
+	HotTea(CoffeeMachine& context) : Tea(context) {}
+	void showInfo() override;
+	DrinkProgramStatus prepare() override;
 };
 
 class ColdTea : public Tea
 {
 public:
-	ColdTea(CoffeeMachine& context) :Tea(DrinkType::ColdTea, context) {}
+	ColdTea(CoffeeMachine& context) : Tea(context) {}
+	void showInfo() override;
+	DrinkProgramStatus prepare() override;
 };
