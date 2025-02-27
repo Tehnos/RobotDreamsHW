@@ -21,6 +21,8 @@ bool handleCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2)
 }
 
 
+bool isFullscreen = false;
+
 int main()
 {
     sf::VideoMode setup({ 1920,1080 }, 32);
@@ -44,6 +46,20 @@ int main()
             {
                 window.close();
             }
+            if (event->is<sf::Event::KeyPressed>())
+            {
+                if (event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::F11)
+                {
+                    isFullscreen = !isFullscreen;
+                    window.close();
+                    window.create(isFullscreen?sf::VideoMode::getDesktopMode():setup, "Doodle Jump, pt.2", isFullscreen?sf::State::Fullscreen:sf::State::Windowed);
+                    sf::VideoMode newVideoMode(window.getSize());
+                    player.handleResize(newVideoMode);
+                    sf::View newView(sf::FloatRect({ 0, 0 }, { static_cast<float>(window.getSize().x),static_cast<float>(window.getSize().y)}));
+                    window.setView(newView);
+                    background.resize(window.getSize());
+                }
+            }
             if (const auto* resized = event->getIf<sf::Event::Resized>())
             {
                 sf::VideoMode newVideoMode({ resized->size.x, resized->size.y });
@@ -53,6 +69,7 @@ int main()
                 window.setView(newView);
                 background.resize(resized->size);
             }
+
 
         }
 
