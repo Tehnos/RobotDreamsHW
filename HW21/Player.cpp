@@ -101,7 +101,7 @@ void Player::updateOrientation()
 	}
 }
 
-void Player::checkBoundaries()
+const void Player::checkBoundaries()
 {
 	sf::FloatRect spriteBounds = m_sprite.getGlobalBounds();
 

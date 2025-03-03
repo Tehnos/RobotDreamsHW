@@ -29,7 +29,7 @@ private:
 	void updateJumpInput(float dt);
 	void updateOrientation();
 
-	void checkBoundaries();
+	const void checkBoundaries() ;
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
