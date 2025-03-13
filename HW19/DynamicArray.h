@@ -115,7 +115,8 @@ void DynamicArray<T>::setSize(std::size_t newSize)
 template <typename T>
 void DynamicArray<T>::push_back(T element)
 {
-	T* newData = new T[m_size + 1];
+	std::size_t newCapacity = (m_capacity == 0) ? 1 : m_capacity * 2;
+	T* newData = new T[newCapacity];
 	for (size_t i = 0; i < m_size; i++)
 	{
 		newData[i] = m_data[i];
@@ -123,8 +124,8 @@ void DynamicArray<T>::push_back(T element)
 	newData[m_size] = element;
 	delete[] m_data;
 	m_data = newData;
+	m_capacity = newCapacity;
 	++m_size;
-	m_capacity = m_size;
 }
 template <typename T>
 void DynamicArray<T>::reserve(std::size_t reservedSpace)
