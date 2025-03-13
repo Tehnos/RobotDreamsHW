@@ -12,9 +12,10 @@ public:
 
 	Modifier* generateModifier() const;
 
-	std::vector<Modifier*> generateModifiers() const;
 
+	std::vector<Modifier*> generateModifiers() const;
 private:
 	std::vector<Modifier*> m_modifiersDatabase;
 	std::vector<Modifier*> m_availableModifiers;
+
 };

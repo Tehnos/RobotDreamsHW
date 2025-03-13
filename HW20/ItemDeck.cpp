@@ -59,7 +59,7 @@ std::vector<Item*> ItemDeck::generateItems() const
 		return handAndArmors;
 	}
 
-	const int count = 3;
+	const int count = 2;
 	std::vector<int> usedIndices;
 
 	while (handAndArmors.size() < count && usedIndices.size() < m_itemsDataBase.size())
@@ -74,43 +74,4 @@ std::vector<Item*> ItemDeck::generateItems() const
 	}
 
 	return handAndArmors;
-}
-void ItemDeck::writeFile(const char* fileName) const
-{
-	std::fstream file;
-	file.open(fileName, std::ios::out);
-	if (!file)
-	{
-		std::cout << "File not created\n";
-		return;
-	}
-
-	for (Item* item : m_itemsDataBase)
-	{
-		if (Weapon* weapon = dynamic_cast<Weapon*>(item))
-		{
-			if (UndeadWeapon* undeadWeapon = dynamic_cast<UndeadWeapon*>(weapon))
-			{
-				file << "UndeadWeapon;" << undeadWeapon->getName() << ";" << undeadWeapon->getBasePower() << "\n";
-			}
-			else if (MagicWeapon* magicWeapon = dynamic_cast<MagicWeapon*>(weapon))
-			{
-				file << "MagicWeapon;" << magicWeapon->getName() << ";" << magicWeapon->getBasePower() << "\n";
-			}
-			else if (HolySword* holySword = dynamic_cast<HolySword*>(weapon))
-			{
-				file << "HolySword;" << holySword->getName() << ";" << holySword->getBasePower() << "\n";
-			}
-			else
-			{
-				file << "Weapon;" << weapon->getName() << ";" << weapon->getBasePower() << "\n";
-			}
-		}
-		else
-		{
-			file << "Item;" << item->getName() << ";0\n";
-		}
-	}
-
-	file.close();
 }

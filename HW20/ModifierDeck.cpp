@@ -37,42 +37,39 @@ ModifierDeck::~ModifierDeck()
 
 Modifier* ModifierDeck::generateModifier() const
 {
-    static std::vector<Modifier*> availableModifierCopy = m_availableModifiers;
-    static int count = 0;
+	std::vector<Modifier*> availableModifierCopy = m_availableModifiers;
 
-    if (availableModifierCopy.empty() || count >= 4)
-    {
-        availableModifierCopy = m_availableModifiers;
-        count = 0;
-    }
+	if (availableModifierCopy.empty())
+	{
+		availableModifierCopy = m_availableModifiers;
+	}
 
-    unsigned int idx = std::rand() % availableModifierCopy.size();
-    Modifier* selectedModifier = availableModifierCopy[idx];
-    availableModifierCopy.erase(availableModifierCopy.begin() + idx);
-    
-    count++;
+	unsigned int idx = std::rand() % availableModifierCopy.size();
+	Modifier* selectedModifier = availableModifierCopy[idx];
+	availableModifierCopy.erase(availableModifierCopy.begin() + idx);
 
-    return selectedModifier;
+	return selectedModifier;
 }
 
 std::vector<Modifier*> ModifierDeck::generateModifiers() const
 {
-    static std::vector<Modifier*> availableModifierCopy = m_availableModifiers;
-    std::vector<Modifier*> selectedModifiers;
+	std::vector<Modifier*> availableModifierCopy = m_availableModifiers;
+	std::vector<Modifier*> selectedModifiers;
 
-    if (availableModifierCopy.size() < 6)
-    {
-        availableModifierCopy = m_availableModifiers; 
-    }
+	if (availableModifierCopy.empty())
+	{
+		availableModifierCopy = m_availableModifiers;
+	}
 
-    for (int i = 0; i < 4; ++i)
-    {
-        unsigned int idx = std::rand() % availableModifierCopy.size();
-        selectedModifiers.push_back(availableModifierCopy[idx]);
-        availableModifierCopy.erase(availableModifierCopy.begin() + idx);
-    }
+	for (int i = 0; i < 4; ++i)
+	{
+		unsigned int idx = std::rand() % availableModifierCopy.size();
+		selectedModifiers.push_back(availableModifierCopy[idx]);
+		availableModifierCopy.erase(availableModifierCopy.begin() + idx);
+	}
 
-    return selectedModifiers;
+	return selectedModifiers;
 }
+
 
 
