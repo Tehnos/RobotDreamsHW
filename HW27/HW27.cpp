@@ -88,17 +88,18 @@ int parallel_sum2x(const std::vector<int>& vec) {
 
 void measure_performance(const std::string& label, int (*func)(const std::vector<int>&), const std::vector<int>& vec, double single_thread_time) {
     auto start = std::chrono::high_resolution_clock::now();
-    int result = func(vec); 
+    int result = func(vec);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    double time = duration.count(); 
-    double boost = single_thread_time / time; 
+    double time = duration.count();
+    double boost =time/ single_thread_time;
 
+    std::cout << std::fixed << std::setprecision(6);
     std::cout << label << ":" << std::endl;
     std::cout << "  Result: " << result << std::endl;
     std::cout << "  Time: " << time << " seconds" << std::endl;
-    std::cout << "  Boost: " << boost << "x" << std::endl;
+    std::cout << "  Boost: " << boost << "x" << std::endl<< std::endl;
 }
 void random(std::vector<int>& vec, int a)
 {
@@ -112,10 +113,10 @@ void random(std::vector<int>& vec, int a)
 int main() {
 
 
-    std::vector<int> vec(1000000);
-    std::vector<int> vec2(1000000);
-    std::vector<int> vec3(1000000);
-    std::vector<int> vec4(1000000);
+    std::vector<int> vec(10000);
+    std::vector<int> vec2(10000);
+    std::vector<int> vec3(10000);
+    std::vector<int> vec4(10000);
 
     random(vec,100);
     random(vec2,50);
@@ -128,9 +129,10 @@ int main() {
     std::chrono::duration<double> single_thread_duration = end_single_thread - start_single_thread;
     double single_thread_time = single_thread_duration.count();
 
+    std::cout << std::fixed << std::setprecision(6);
     std::cout << "Single-threaded sum:" << std::endl;
     std::cout << "  Result: " << single_thread_result << std::endl;
-    std::cout << "  Time: " << single_thread_time << " seconds" << std::endl;
+    std::cout << "  Time: " << single_thread_time << " seconds" << std::endl<< std::endl;
 
     measure_performance("Parallel sum (2 threads)", parallel_sum2Threads, vec2, single_thread_time);
     measure_performance("Parallel sum " + std::to_string(std::thread::hardware_concurrency()) + " threads", parallel_sum, vec3, single_thread_time);
