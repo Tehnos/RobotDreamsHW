@@ -398,3 +398,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+HW19/DynamicIntArray.cpp
+HW19/DynamicIntArray.cpp
+HW19/DynamicIntArray.h
+HW20/HW20.sln
