@@ -9,7 +9,6 @@ GameHUD::GameHUD(sf::RenderWindow* window, GameWorld* gameWorld)
     , m_gameWorld(gameWorld)
     , m_playerHealthHUD(FontManager::getInstance().getDefaultFont())
     , m_bossHealthHUD(FontManager::getInstance().getDefaultFont())
-    , m_shortcutsHelper(FontManager::getInstance().getDefaultFont())
 {
     m_playerHealthHUD.setCharacterSize(48);
     m_playerHealthHUD.setFillColor(sf::Color::Black);
@@ -18,13 +17,12 @@ GameHUD::GameHUD(sf::RenderWindow* window, GameWorld* gameWorld)
     m_bossHealthHUD.setCharacterSize(48);
     m_bossHealthHUD.setFillColor(sf::Color::Black);
     m_bossHealthHUD.setPosition({ static_cast<float>(m_window->getSize().x) - 200.0f, 20.0f });
-
-    m_shortcutsHelper.setCharacterSize(48);
-    m_shortcutsHelper.setFillColor(sf::Color::Black);
-    m_shortcutsHelper.setPosition({ 20.0f, static_cast<float>(m_window->getSize().y) - 100.0f });
-    m_shortcutsHelper.setString("P - pause/unpause\nNum3 - exit game");
+    WindowManager::getInstance().registerResizable(this);
 }
-
+GameHUD::~GameHUD()
+{
+    WindowManager::getInstance().unregisterResizable(this);
+}
 void GameHUD::update(float dt)
 {
     Player* player = m_gameWorld->getPlayer();
@@ -53,5 +51,10 @@ void GameHUD::draw()
 {
     m_window->draw(m_playerHealthHUD);
     m_window->draw(m_bossHealthHUD);
-    m_window->draw(m_shortcutsHelper);
+}
+
+void GameHUD::onResize(sf::Vector2u newSize)
+{
+    m_playerHealthHUD.setPosition({ 20.0f, 20.0f });
+    m_bossHealthHUD.setPosition({ static_cast<float>(newSize.x) - 400.0f, 20.0f });
 }
