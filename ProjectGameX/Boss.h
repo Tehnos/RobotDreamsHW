@@ -30,7 +30,8 @@ public:
     void shootAt(const sf::Vector2f& target);
     void die();
     std::vector<Bullet>& getBullets() { return m_bullets; }
-    int getHealth() const { return m_health; }
+    float getHealth() const { return m_health; }
+    float getMaxHealth() const { return m_maxHealth; }
     void nextPhase();
     sf::Vector2f getPosition() const { return m_position; }
     sf::Sprite& getSprite() { return m_sprite; }

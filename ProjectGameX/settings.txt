@@ -1,8 +1,8 @@
-MasterVolume=60
+MasterVolume=70
 MusicVolume=20
 SFXVolume=70
-Resolution=1600x900
-Fullscreen=Off
-VSync=On
+Resolution=2560x1440
+Fullscreen=On
+VSync=Off
 BlurEffect=Off
 ParticleEffects=Off
