@@ -125,8 +125,6 @@ private:
 	void setupMenu();
 	void updateMenuColors();
 	void handleSelection();
-	void saveSettings();
-	void loadSettings();
 	void updateMenuPositions();
 private:
 	GameOptions& m_options;
@@ -134,12 +132,4 @@ private:
 	std::vector<sf::Text> m_menuItems;
 	size_t m_selectedItem;
 	bool m_pressedLastFrame = false;
-	float m_masterVolume = 100.0f;
-	float m_musicVolume = 100.0f;
-	float m_sfxVolume = 100.0f;
-	sf::Vector2u m_resolution = { 1920, 1080 };
-	bool m_fullscreen = false;
-	bool m_vSync = true;
-	bool m_blurEffect = false;
-	bool m_particleEffects = true;
 };

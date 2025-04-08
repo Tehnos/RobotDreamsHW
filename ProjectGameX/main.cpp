@@ -41,15 +41,15 @@ void handleWindowEvents(sf::RenderWindow& window, GameStateManager& gameStateMan
 
 int main()
 {
+    GameOptions::getInstance().loadSettings();
     sf::RenderWindow window(sf::VideoMode{ {1920, 1080} }, "ProjectGameX");
     WindowManager::getInstance().initialize(&window);
     //window.setFramerateLimit(560);
-
+    GameOptions::getInstance().applyVideoSettings(window);
     sf::Clock mainClock;
 
     GameWorld gameWorld(&window);
     GameStateManager gameStateManager(&gameWorld, GameStateId::TitleScreen, &window);
-
     SoundManager::getInstance().playInGameMusic();
     GameHUD gameHud(&window, &gameWorld);
 

@@ -368,7 +368,6 @@ void GameState_Options::onEnter()
 void GameState_Options::onExit()
 {
 	WindowManager::getInstance().unregisterResizable(this);
-	saveSettings();
 	m_pressedLastFrame = false;
 }
 void GameState_Options::onResize(sf::Vector2u newSize)
@@ -534,36 +533,47 @@ void GameState_Options::changeResolution(int direction)
 	m_gameStateManager.handleResize(m_window->getSize());
 }
 
-void GameState_Options::setupMenu()
-{
+void GameState_Options::setupMenu() {
 	m_menuItems.clear();
+	auto& options = GameOptions::getInstance();
 
 	std::vector<std::string> menuOptions = {
-		"Master Volume: " + std::to_string(static_cast<int>(m_options.getMasterVolume())),
-		"Music Volume: " + std::to_string(static_cast<int>(m_options.getMusicVolume())),
-		"SFX Volume: " + std::to_string(static_cast<int>(m_options.getSFXVolume())),
-		"Resolution: " + std::to_string(m_options.getResolution().x) + "x" + std::to_string(m_options.getResolution().y),
-		"Fullscreen: " + std::string(m_options.isFullscreen() ? "On" : "Off"),
-		"VSync: " + std::string(m_options.isVSync() ? "On" : "Off"),
-		"Blur Effect: " + std::string(m_options.isBlurEffectEnabled() ? "On" : "Off"),
-		"Particle Effects: " + std::string(m_options.isParticleEffectsEnabled() ? "On" : "Off"),
+		"Master Volume: " + std::to_string(static_cast<int>(options.getMasterVolume())),
+		"Music Volume: " + std::to_string(static_cast<int>(options.getMusicVolume())),
+		"SFX Volume: " + std::to_string(static_cast<int>(options.getSFXVolume())),
+		"Resolution: " + std::to_string(options.getResolution().x) + "x" + std::to_string(options.getResolution().y),
+		"Fullscreen: " + std::string(options.isFullscreen() ? "On" : "Off"),
+		"VSync: " + std::string(options.isVSync() ? "On" : "Off"),
+		"Blur Effect: " + std::string(options.isBlurEffectEnabled() ? "On" : "Off"),
+		"Particle Effects: " + std::string(options.isParticleEffectsEnabled() ? "On" : "Off"),
 		"Back"
 	};
 
+	// Налаштування заголовка
 	m_titleText.setString("OPTIONS");
 	m_titleText.setCharacterSize(static_cast<unsigned int>(120 * (m_window->getSize().y / 1080.0f)));
 	m_titleText.setFillColor(sf::Color::White);
+	m_titleText.setPosition({
+		m_window->getSize().x / 2.0f - m_titleText.getGlobalBounds().size.x / 2.0f,
+		50.0f * (m_window->getSize().y / 1080.0f)
+		});
 
-	const unsigned int baseFontSize = 50;
-	for (const auto& option : menuOptions)
-	{
+	// Створення пунктів меню
+	const unsigned int baseFontSize = static_cast<unsigned int>(50 * (m_window->getSize().y / 1080.0f));
+	float yPos = 200.0f * (m_window->getSize().y / 1080.0f);
+	const float step = 70.0f * (m_window->getSize().y / 1080.0f);
+
+	for (const auto& option : menuOptions) {
 		sf::Text text(FontManager::getInstance().getDefaultFont());
 		text.setString(option);
-		text.setCharacterSize(static_cast<unsigned int>(baseFontSize * (m_window->getSize().y / 1080.0f)));
+		text.setCharacterSize(baseFontSize);
 		text.setFillColor(sf::Color::White);
+		text.setOrigin({ text.getLocalBounds().size.x / 2, text.getLocalBounds().size.y / 2 });
+		text.setPosition({ m_window->getSize().x / 2.0f, yPos });
 		m_menuItems.push_back(text);
+		yPos += step;
 	}
-	updateMenuPositions();
+
 	updateMenuColors();
 }
 
@@ -575,105 +585,35 @@ void GameState_Options::updateMenuColors()
 	}
 }
 
-void GameState_Options::handleSelection()
-{
-	switch (m_selectedItem)
-	{
-	case 0: // Master Volume
+void GameState_Options::handleSelection() {
+	auto& options = GameOptions::getInstance();
 
-		m_options.setMasterVolume(std::min(100.f, m_options.getMasterVolume() + 10.f));
-		break;
-	case 1: // Music Volume
-		m_options.setMusicVolume(std::min(100.f, m_options.getMusicVolume() + 10.f));
-		break;
-	case 2: // SFX Volume
-		m_options.setSFXVolume(std::min(100.f, m_options.getSFXVolume() + 10.f));
-		break;
-	case 3: // Resolution
-		changeResolution(1); // 1 - ïåðåõ³ä äî íàñòóïíîãî ðîçøèðåííÿ
-		break;
-	case 4: // Fullscreen
-		m_options.setFullscreen(!m_options.isFullscreen());
-		m_options.applyVideoSettings(*m_window);
+	switch (m_selectedItem) {
+	case 0: options.setMasterVolume(std::min(100.f, options.getMasterVolume() + 10.f)); break;
+	case 1: options.setMusicVolume(std::min(100.f, options.getMusicVolume() + 10.f)); break;
+	case 2: options.setSFXVolume(std::min(100.f, options.getSFXVolume() + 10.f)); break;
+	case 3: 
+		changeResolution(1);
 		WindowManager::getInstance().notifyResize(m_window->getSize());
 		m_gameStateManager.handleResize(m_window->getSize());
 		break;
-	case 5: // VSync
-		m_options.setVSync(!m_options.isVSync());
-		m_options.applyVideoSettings(*m_window);
+	case 4:
+		options.setFullscreen(!options.isFullscreen());
+		options.applyVideoSettings(*m_window);
+		WindowManager::getInstance().notifyResize(m_window->getSize());
 		m_gameStateManager.handleResize(m_window->getSize());
 		break;
-	case 6: // Blur Effect
-		m_options.setBlurEffect(!m_options.isBlurEffectEnabled());
+	case 5:
+		options.setVSync(!options.isVSync());
+		options.applyVideoSettings(*m_window);
 		break;
-	case 7: // Particle Effects
-		m_options.setParticleEffects(!m_options.isParticleEffectsEnabled());
-		break;
-	case 8: // Back
+	case 6: options.setBlurEffect(!options.isBlurEffectEnabled()); break;
+	case 7: options.setParticleEffects(!options.isParticleEffectsEnabled()); break;
+	case 8:
 		m_gameStateManager.returnToPreviousState();
+		options.saveSettings();
 		return;
 	}
 	setupMenu();
 }
 
-
-void GameState_Options::loadSettings()
-{
-	std::ifstream inFile("settings.txt");
-
-	if (inFile.is_open())
-	{
-		std::string line;
-		while (std::getline(inFile, line)) {
-			if (line.find("MasterVolume=") == 0) {
-				m_masterVolume = std::stof(line.substr(13));
-			}
-			else if (line.find("MusicVolume=") == 0) {
-				m_musicVolume = std::stof(line.substr(12));
-			}
-			else if (line.find("SFXVolume=") == 0) {
-				m_sfxVolume = std::stof(line.substr(10));
-			}
-			else if (line.find("Resolution=") == 0) {
-				std::string res = line.substr(11);
-				size_t pos = res.find('x');
-				if (pos != std::string::npos) {
-					m_resolution.x = std::stoi(res.substr(0, pos));
-					m_resolution.y = std::stoi(res.substr(pos + 1));
-				}
-			}
-			else if (line.find("Fullscreen=") == 0) {
-				m_fullscreen = (line.substr(11) == "On");
-			}
-			else if (line.find("VSync=") == 0) {
-				m_vSync = (line.substr(6) == "On");
-			}
-			else if (line.find("BlurEffect=") == 0) {
-				m_blurEffect = (line.substr(11) == "On");
-			}
-			else if (line.find("ParticleEffects=") == 0) {
-				m_particleEffects = (line.substr(17) == "On");
-			}
-		}
-
-		inFile.close();
-	}
-}
-void GameState_Options::saveSettings()
-{
-	std::ofstream outFile("settings.txt");
-
-	if (outFile.is_open())
-	{
-		outFile << "MasterVolume=" << m_masterVolume << "\n";
-		outFile << "MusicVolume=" << m_musicVolume << "\n";
-		outFile << "SFXVolume=" << m_sfxVolume << "\n";
-		outFile << "Resolution=" << m_resolution.x << "x" << m_resolution.y << "\n";
-		outFile << "Fullscreen=" << (m_fullscreen ? "On" : "Off") << "\n";
-		outFile << "VSync=" << (m_vSync ? "On" : "Off") << "\n";
-		outFile << "BlurEffect=" << (m_blurEffect ? "On" : "Off") << "\n";
-		outFile << "ParticleEffects=" << (m_particleEffects ? "On" : "Off") << "\n";
-
-		outFile.close();
-	}
-}
