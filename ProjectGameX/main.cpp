@@ -41,7 +41,7 @@ void handleWindowEvents(sf::RenderWindow& window, GameStateManager& gameStateMan
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode{ {1920, 1080} }, "Doodle Jump, pt.6");
+    sf::RenderWindow window(sf::VideoMode{ {1920, 1080} }, "ProjectGameX");
     WindowManager::getInstance().initialize(&window);
     //window.setFramerateLimit(560);
 
