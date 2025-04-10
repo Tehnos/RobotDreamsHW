@@ -1,0 +1,28 @@
+Weapon;The Sword of DOOM;5
+UndeadWeapon;Stinky knife;2
+UndeadWeapon;Holy grenade;4
+MagicWeapon;HOLLY MOLLY;4
+HolySword;Sword of justice;7
+Weapon;Sharp Spoon;1
+Weapon;Half-Eaten Sword;2
+Weapon;Rubber Club;2
+Weapon;Wooden Boomerang;3
+Weapon;Sooty Crossbow;3
+MagicWeapon;Magic Bow;4
+Weapon;Double-Sided Axe;5
+HolySword;Holy Hand Grenade;6
+Weapon;Giant Fist of Doom;7
+Weapon;Elven Longsword;8
+Weapon;Cursed Demonic Scythe;9
+Weapon;Plasma Blaster;5
+Weapon;Sword of Swords;6
+Weapon;Dragon-Slaying Crossbow;5
+Weapon;Axe of the Ancient Gods;4
+Weapon;Cosmic Laser 3000;8
+Item;Blonde Wig Helmet;0
+Item;Turtle Shell Armor;0
+Item;Scaly Armor;0
+Item;Spiked Plate Mail;0
+Item;Enchanted Shield;0
+Item;Cybernetic Exosuit;0
+Item;Holy Armor;0
